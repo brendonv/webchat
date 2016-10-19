@@ -5,7 +5,7 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var addsrc = require('gulp-add-src');
 var newer = require('gulp-newer');
-var jade = require('gulp-jade');
+var pug = require('gulp-pug');
 var stylus = require('gulp-stylus');
 var streamqueue = require('streamqueue');
 var autoprefixer = require('gulp-autoprefixer');
@@ -33,8 +33,8 @@ gulp.task('build', function(){
   console.log('Build glob: ', ENV, build_glob);
   return streamqueue({ objectMode: true },
     gulp.src(build_glob),
-    gulp.src(['app/views/*.jade'])
-      .pipe(jade({pretty: true}))
+    gulp.src(['app/views/*.pug'])
+      .pipe(pug({pretty: true}))
       .pipe(html2js({ moduleName: 'templates', declareModule: false, rename: function(url){
         return url.split('/').pop(-1);
       }}))
