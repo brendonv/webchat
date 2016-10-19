@@ -1,0 +1,23 @@
+{
+  "name": "webchat",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Brendon <brendon.verissimo@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.8",
+    "angular-route": "^1.5.8",
+    "bootstrap": "v4.0.0-alpha.5"
+  }
+}
