@@ -29,7 +29,7 @@ gulp.task('build-vendor', function(){
 });
 
 gulp.task('build', function(){
-  var build_glob = (ENV.toUpperCase() === 'PRODUCTION') ? prod_glob : dev_glob;
+  var build_glob = (ENV.toUpperCase() === 'PRODUCTION' || ENV.toUpperCase() === 'TEST') ? prod_glob : dev_glob;
   console.log('Build glob: ', ENV, build_glob);
   return streamqueue({ objectMode: true },
     gulp.src(build_glob),
