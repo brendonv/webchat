@@ -1,3 +1,4 @@
+console.log("TEST");
 // Gulp / Build dependencies
 var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');  
@@ -15,6 +16,7 @@ var PORT = process.env.PORT || 5000;
 var Server;
 
 if (ENV.toUpperCase() === 'TEST') {
+  console.log("require server");
   Server = require('karma').Server;
 }
 
@@ -78,11 +80,14 @@ gulp.task('start', function() {
 });
 
 gulp.task('test', function (done) {
-  if (!Server) return done();
+  console.log(Server);
+  if (!Server) return;
   new Server({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
-  }, done).start();
+  }, function () {
+    console.log("done");
+  }).start();
 });
 
 // Compound Tasks
