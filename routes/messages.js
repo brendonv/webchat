@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Message = mongoose.model('Message');
 
-exports.index = function(req, res) {
+exports.index = function(req, res, next) {
     var noUser = req.user ? false : true;
     var skip = req.query.skip || 0;
     var limit = noUser ? 10 : 20;
@@ -9,7 +9,7 @@ exports.index = function(req, res) {
     Messages.findAll(query).skip(skip).limit(limit).exec(function(error, messages) {
         if (error) {
             console.log("ERROR: messages.index", error);
-            return res.sendStatus(500);
+            return next();
         }
 
         return res.send(200).json({messages: messages});
@@ -17,11 +17,11 @@ exports.index = function(req, res) {
 
 };
 
-exports.create = function(req, res) {
+exports.create = function(req, res, next) {
     var user = req.user;
     var content = req.body.content;
 
-    if (!user) return res.send(400).json({error: "Missing user."});
+    if (!user) return next({message: "Missing user."});
 
     var message = new Message({
         creator: user._id,
@@ -32,9 +32,9 @@ exports.create = function(req, res) {
     message.save(function(error, message) {
         if (error) {
             console.log("ERROR: messages.create", error);
-            return res.sendStatus(500);
+            return next();
         }
 
-        return res.send(200).json({message: message});
+        return res.sendStatus(200).json({message: message});
     })
 };
