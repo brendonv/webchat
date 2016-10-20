@@ -1,7 +1,9 @@
 angular.module("webchat")
-    .controller("MainCtrl", ["$scope", "MessageResource", "Poller", function($scope, MessageResource, Poller) {
+    .controller("MainCtrl", ["$scope", "User", "MessageResource", "Poller", function($scope, User, MessageResource, Poller) {
 
         console.log("MAIN PAGER");
+
+        $scope.user = User.user();
 
         $scope.input = {
             value: ""
@@ -15,9 +17,12 @@ angular.module("webchat")
             "messageFive"
         ];
 
-        Poller.poll(10* 1000, function (data) {
-            messages.append(data);
-        })
+        function startPoller() {
+            Poller.poll(10* 1000, function (data) {
+                console.log("POLLER RETURN: ", data);
+                messages.append(data);
+            });
+        }
 
         $scope.userInput = function() {
             console.log($scope.input.value);
@@ -30,7 +35,11 @@ angular.module("webchat")
             }).catch(function(error) {
                 console.log("ERROR: main.sendMessage", error);
             });
-        }
+        };
+
+        $scope.$watch("user", function(newValue, oldValue) {
+            console.log("user value change", newValue, oldValue);
+        });
 
 
 
