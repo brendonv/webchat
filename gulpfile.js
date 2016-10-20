@@ -16,9 +16,10 @@ var Server;
 
 if (ENV.toUpperCase() === 'TEST') {
   Server = require('karma').Server;
+}
+if (ENV.toUpperCase() === 'DEV') {
   nodemon = require('gulp-nodemon');
 }
-
 // File Paths and Build Destinations
 var concat_dest = 'public/build';
 var app_filename = 'webchat.min.js';
@@ -57,25 +58,29 @@ gulp.task('sass', function(){
     .pipe(autoprefixer())
     .pipe(addsrc(['vendor/**/*.css']))
     .pipe(concat(css_filename))
-    .pipe(gulp.dest(concat_dest))
-    .pipe(browserSync.reload({stream: true}));
+    .pipe(gulp.dest(concat_dest));
+    // .pipe(browserSync.reload({stream: true}));
 });
 
-gulp.task('browser-sync', function() {
+gulp.task('browser-sync', ['nodemon'], function() {
     browserSync.init({
       proxy: "localhost:" + PORT
     });
-
-    gulp.watch(app_css, ['sass']);
-    gulp.watch(dev_glob).on('change', browserSync.reload);
 });
 
-gulp.task('start', function() {
+gulp.task('nodemon', function(cb) {
+  var started = false;
   if (!nodemon) return;
-  nodemon({
+  return nodemon({
     script: 'index.js',
     ext: 'js pug',
     env: { 'NODE_ENV': 'DEV' }
+  }).on('start', function () {
+    // to avoid nodemon being started multiple times
+    if (!started) {
+      cb();
+      started = true; 
+    } 
   });
 });
 
@@ -89,7 +94,12 @@ gulp.task('test', function (done) {
   }).start();
 });
 
+gulp.task('dev', ['build-vendor', 'js', 'sass', 'browser-sync'], function() {
+  gulp.watch(dev_glob, ['build-vendor', 'js', 'sass', 'browser-sync'])
+  gulp.watch(app_css, ['build-vendor', 'js', 'sass', 'browser-sync'])
+})
+
 // Compound Tasks
 gulp.task('default',  ['build-vendor', 'js', 'sass']);
 
-gulp.task('dev', ['build-vendor', 'js', 'sass', 'browser-sync', 'start']);
+// gulp.task('dev', ['build-vendor', 'js', 'sass', 'browser-sync']);

@@ -8,12 +8,9 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function($ro
 
   $routeProvider
     .when('/', {
-      templateUrl: 'landing.html',
-      controller: 'LandingCtrl'
-    })
-    .otherwise({
-      redirectTo: '/'
-    })
+      templateUrl: 'main.html',
+      controller: 'MainCtrl'
+    });
     
 }]);
 

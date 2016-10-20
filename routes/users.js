@@ -1,9 +1,30 @@
-var express = require('express');
-var router = express.Router();
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+exports.signup = function(req, res) {
 
-module.exports = router;
+    var username = req.body.username;
+
+    if (!username) return res.send(400).json({error: "Missing username."});
+
+    var user = new User({
+        username: username,
+        created: Date.now()
+    });
+
+    user.save(function(error, saveUser) {
+
+        if (error) {
+            console.log("ERROR: users.signup", error);
+            return res.sendStatus(500);
+        }
+
+        return res.status(200).json({user: saveUser});
+
+    });
+
+};
+
+exports.logout = function(req, res) {
+    return res.sendStatus(200);
+};
