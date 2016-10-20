@@ -19,19 +19,22 @@ db.once('open', function (cb) {
   console.log("successfully opened");
 });
 
-/**
- * Routes
- */
-
-var users = require('./routes/users');
-var messages = require('./routes/messages');
 
 /**
  * Models
  */
 
 require('./models/user');
-require('./models/message');  
+require('./models/message');
+
+var User = mongoose.model('User');
+
+/**
+ * Routes
+ */
+
+var users = require('./routes/users');
+var messages = require('./routes/messages');
 
 var app = express();
 
