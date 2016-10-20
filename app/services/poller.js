@@ -1,9 +1,8 @@
 angular.module('webchat')
     .factory('Poller', ["$interval", "MessageResource", "User", function($interval, MessageResource, User) {
-        var intervalId, userId, lastReceivedMessage;
+        var intervalId, userId, lastCalled;
         return {
             poll: poll,
-            lastReceivedMessage: setLastReceivedMessage,
             cancel: cancel
         };
         
@@ -16,20 +15,21 @@ angular.module('webchat')
         }
 
         function getMessages(callback, initial) {
-            console.log("getMessages: ", lastReceivedMessage);
+            console.log("getMessages: ", (Date.now() - lastCalled)/1000 );
             var isInitialRequest = initial !== undefined ? initial : false;
-            MessageResource.index({userId: userId, lastReceivedMessage: lastReceivedMessage, initial: isInitialRequest}).$promise.then(function(data) {
+
+            var timeOfCall = Date.now();
+
+            MessageResource.index({userId: userId, lastCalled: lastCalled, initial: isInitialRequest}).$promise.then(function(data) {
                 console.log("Poller getMessages", data);
+                //set lastCalled to determine $gt time stamp
+                lastCalled = timeOfCall;
                 var messages = data.messages;
 
                 if (messages) callback(messages);
             }).catch(function(error) {
                 console.log("Poller getMessages error", error);
             });
-        }
-
-        function setLastReceivedMessage(value) {
-            lastReceivedMessage = value;
         }
 
         function cancel() {
