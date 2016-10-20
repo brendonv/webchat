@@ -1,6 +1,5 @@
 // Gulp / Build dependencies
 var gulp = require('gulp');
-var Server = require('karma').Server;
 var nodemon = require('gulp-nodemon');  
 var html2js = require('gulp-ng-html2js');
 var uglify = require('gulp-uglify');
@@ -13,6 +12,11 @@ var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
 var ENV = process.env.NODE_ENV || 'DEV';
 var PORT = process.env.PORT || 5000;
+var Server;
+
+if (ENV.toUpperCase() === 'TEST') {
+  Server = require('karma').Server;
+}
 
 // File Paths and Build Destinations
 var concat_dest = 'public/build';
@@ -74,12 +78,11 @@ gulp.task('start', function() {
 });
 
 gulp.task('test', function (done) {
+  if (!Server) return done();
   new Server({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
-  }, function () {
-    console.log("DONE");
-  }).start();
+  }, done).start();
 });
 
 // Compound Tasks
