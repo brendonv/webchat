@@ -20,7 +20,7 @@ var css_filename = 'webchat.css';
 var vendor_filename = 'vendor.min.js';
 var dev_glob = ['app/**/*.js', '!app/config/production-config.js'];
 var prod_glob = ['app/**/*.js', '!app/config/dev-config.js'];
-var vendor_js = ['vendor/angular/*.min.js', 'vendor/**/*.min.js', 'vendor/**/dist/*.min.js'];
+var vendor_js = ['vendor/**/*.min.js', 'vendor/**/dist/*.min.js'];
 var app_css = ['app/style/*.scss'];
   
 
@@ -33,7 +33,6 @@ gulp.task('build-vendor', function(){
 
 gulp.task('js', function(){
   var build_glob = (ENV.toUpperCase() === 'PRODUCTION' || ENV.toUpperCase() === 'TEST') ? prod_glob : dev_glob;
-  console.log('Build glob: ', ENV, build_glob);
   return streamqueue({ objectMode: true },
     gulp.src(build_glob),
     gulp.src(['app/views/*.pug'])
