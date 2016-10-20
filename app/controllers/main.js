@@ -1,5 +1,5 @@
 angular.module("webchat")
-    .controller("MainCtrl", ["$scope", "User", "MessageResource", "Poller", function($scope, User, MessageResource, Poller) {
+    .controller("MainCtrl", ["$scope", "$rootScope", "User", "MessageResource", "Poller", function($scope, $rootScope, User, MessageResource, Poller) {
 
         console.log("MAIN PAGER");
 
@@ -12,17 +12,15 @@ angular.module("webchat")
         };
 
         $scope.messages = [
-            "messageOne",
-            "messageTwo",
-            "messageThree",
-            "messageFour",
-            "messageFive"
         ];
 
         function startPoller() {
             pollerId = Poller.poll(10* 1000, function (data) {
-                console.log("POLLER RETURN: ", data);
-                messages.append(data);
+                if (data.length) {
+                    $scope.messages = $scope.messages.concat(data);
+                    console.log("SET lastReceivedMessage", data[data.length -1].created);
+                    Poller.lastReceivedMessage(data[data.length -1].created);
+                }
             });
         }
 
@@ -32,9 +30,13 @@ angular.module("webchat")
 
         $scope.sendMessage = function() {
             console.log("SEND: ", $scope.input.value)
-            MessageResource.create({content:$scope.input.value}).$promise.then(function(data) {
+            var userId = $scope.user && $scope.user._id;
+            if (userId === undefined) return;
+            MessageResource.create({content:$scope.input.value, _id: userId}).$promise.then(function(data) {
                 console.log("MESSAGE CREATE: ", data);
+                $scope.input.value = "";
             }).catch(function(error) {
+                //TODO: Show error dialog
                 console.log("ERROR: main.sendMessage", error);
             });
         };
@@ -46,5 +48,8 @@ angular.module("webchat")
             }
         });
 
+        $rootScope.$on("SIGNEDUP", function() {
+            $scope.user = User.user();
+        });
+
     }]);
-    
