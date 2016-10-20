@@ -1,7 +1,6 @@
 console.log("TEST");
 // Gulp / Build dependencies
 var gulp = require('gulp');
-var nodemon = require('gulp-nodemon');  
 var html2js = require('gulp-ng-html2js');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
@@ -13,11 +12,13 @@ var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
 var ENV = process.env.NODE_ENV || 'DEV';
 var PORT = process.env.PORT || 5000;
+var nodemon;
 var Server;
 
 if (ENV.toUpperCase() === 'TEST') {
   console.log("require server");
   Server = require('karma').Server;
+  nodemon = require('gulp-nodemon');
 }
 
 // File Paths and Build Destinations
@@ -72,6 +73,7 @@ gulp.task('browser-sync', function() {
 });
 
 gulp.task('start', function() {
+  if (!nodemon) return;
   nodemon({
     script: 'index.js',
     ext: 'js pug',
