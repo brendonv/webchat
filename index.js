@@ -58,9 +58,8 @@ app.get('/', function(req, res) {
 app.post('/signup', users.signup);
 app.post('/logout', users.logout);
 
-app.get('/messages/:userId', messages.index);
-  app.post('/messages', messages.create);
-app.post('/messages/:userId', messages.create);
+app.get('/messages/:userId?', messages.index);
+app.post('/messages/:userId?', messages.create);
 
 app.param('userId', function(req, res, next, id) {
   if (!id) {
@@ -89,7 +88,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'DEV') {
+if (ENV === 'DEV') {
   app.use(function(err, req, res, next) {
     console.log(err);
     res.status(err.status || 500);
