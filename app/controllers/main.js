@@ -3,6 +3,8 @@ angular.module("webchat")
 
         console.log("MAIN PAGER");
 
+        var pollerId;
+
         $scope.user = User.user();
 
         $scope.input = {
@@ -18,7 +20,7 @@ angular.module("webchat")
         ];
 
         function startPoller() {
-            Poller.poll(10* 1000, function (data) {
+            pollerId = Poller.poll(10* 1000, function (data) {
                 console.log("POLLER RETURN: ", data);
                 messages.append(data);
             });
@@ -39,8 +41,10 @@ angular.module("webchat")
 
         $scope.$watch("user", function(newValue, oldValue) {
             console.log("user value change", newValue, oldValue);
+            if (newValue && !pollerId) {
+                startPoller();
+            }
         });
 
-
-
     }]);
+    
