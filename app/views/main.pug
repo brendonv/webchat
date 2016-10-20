@@ -1,8 +1,12 @@
-div#main
-    div#messages
-        div(ng-repeat="value in messages")
-            <p>{{value}}</p>
-    div#input
-        form(ng-submit="sendMessage()")
-            input(type='text', ng-model='input.value', ng-change='userInput()')
+div#main.container-fluid
+    div.row
+        div#messages
+            div(ng-repeat="message in messages")
+                p {{message.content}}
+                p {{message.creator.username}}
+                p {{message.created}}
+    div.row
+        div#input
+            form(ng-submit="sendMessage()")
+                input(type='text', ng-model='input.value', ng-change='userInput()')
     wc-signup(ng-if="!user")
