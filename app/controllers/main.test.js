@@ -14,7 +14,7 @@ describe('webchat landing controller', function() {
 
     beforeEach(function() {
       $scope = {};
-      controller = $controller('LandingCtrl', { $scope: $scope });
+      controller = $controller('MainCtrl', { $scope: $scope });
     });
 
     it('should ....', function() {
