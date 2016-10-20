@@ -1,4 +1,3 @@
-console.log("TEST");
 // Gulp / Build dependencies
 var gulp = require('gulp');
 var html2js = require('gulp-ng-html2js');
@@ -16,7 +15,6 @@ var nodemon;
 var Server;
 
 if (ENV.toUpperCase() === 'TEST') {
-  console.log("require server");
   Server = require('karma').Server;
   nodemon = require('gulp-nodemon');
 }
@@ -82,7 +80,6 @@ gulp.task('start', function() {
 });
 
 gulp.task('test', function (done) {
-  console.log(Server);
   if (!Server) return;
   new Server({
     configFile: __dirname + '/karma.conf.js',
