@@ -4,20 +4,43 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var helmet = require('helmet');
+var mongoose   = require('mongoose');
 
 var PORT = process.env.PORT || 5000;
 var ENV = process.env.NODE_ENV;
+var config = require('./config/config');
 
-var routes = require('./routes/index');
+mongoose.connect(config.mongoDB);
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (cb) {
+  console.log("successfully opened");
+});
+
+/**
+ * Routes
+ */
+
 var users = require('./routes/users');
+var messages = require('./routes/messages');
+
+/**
+ * Models
+ */
+
+require('./models/user');
+require('./models/message');  
 
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'pug');
 
-// uncomment after placing your favicon in /public
+app.use(helmet());
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -25,10 +48,31 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', function(req, res) {
+app.get('/', function(req, res) {
   res.render('index');
 });
-app.use('/users', users);
+
+app.post('/signup', users.signup);
+app.post('/logout', users.logout);
+
+app.get('/messages/:userId', messages.index);
+app.post('/messages/:userId', messages.create);
+
+app.param('userId', function(req, res, next, id) {
+  if (!id) {
+    req.user = null;
+    return next();
+  }
+  User.findById(id, function(error, user) {
+    if (error || !user) {
+      req.user = null;
+      return next();
+    }
+
+    req.user = user;
+    next();
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
