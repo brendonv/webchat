@@ -1,2 +1,2 @@
 angular.module('webchat')
-    .constant('API', 'https://stellar-webchat.herokuapp.com/')
+    .constant('API', 'https://stellar-webchat.herokuapp.com')
