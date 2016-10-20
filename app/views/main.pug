@@ -1,0 +1,5 @@
+div#main
+    div#messages
+    div#input
+        form(ng-submit="sendMessage()")
+            input(type='text', ng-model='input.value', ng-change='userInput()')
