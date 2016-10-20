@@ -1,14 +1,14 @@
-// describe('webchat landing controller', function() {
+describe('webchat landing controller', function() {
 
-//   beforeEach(module('webchat'));
+  beforeEach(module('webchat'));
 
-//   describe('landing controller', function(){
+  describe('landing controller', function(){
 
-//     it('should ....', inject(function($controller) {
-//       //spec body
-//       var landingCtrl = $controller('LandingCtrl');
-//       expect(landingCtrl).toBeDefined();
-//     }));
+    it('should ....', inject(function($controller) {
+      //spec body
+      var landingCtrl = $controller('LandingCtrl');
+      expect(landingCtrl).toBeDefined();
+    }));
 
-//   });
-// });
+  });
+});
