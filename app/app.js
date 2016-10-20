@@ -7,7 +7,7 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function($ro
   $locationProvider.html5Mode(true);
 
   $routeProvider
-    .when('*', {
+    .when('/', {
       templateUrl: 'main.html',
       controller: 'MainCtrl'
     });
