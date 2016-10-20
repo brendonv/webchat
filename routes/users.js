@@ -19,7 +19,7 @@ exports.signup = function(req, res) {
             return res.sendStatus(500);
         }
 
-        return res.status(200).json({user: saveUser});
+        return res.json({user: saveUser});
 
     });
 
