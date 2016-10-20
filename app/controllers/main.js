@@ -40,10 +40,9 @@ angular.module("webchat")
         $scope.sendMessage = function() {
             console.log("SEND: ", $scope.input.value)
             var userId = $scope.user && $scope.user._id;
-            var time = Date.now();
             if (userId === undefined) return;
             
-            MessageResource.create({content:$scope.input.value, _id: userId, created: time}).$promise.then(function(data) {
+            MessageResource.create({content:$scope.input.value, _id: userId}).$promise.then(function(data) {
                 $scope.input.value = "";
                 var message = data.message;
                 if (!message) return; //TODO: handle error
