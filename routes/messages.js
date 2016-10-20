@@ -4,22 +4,23 @@ var Message = mongoose.model('Message');
 exports.index = function(req, res, next) {
     console.log("MESSAGES INDEX TOP");
     var noUser = req.user ? false : true;
-    var createdBefore = req.query.createdBefore || Date.now();
+    var initialRequest = req.query.hasOwnProperty("initial") ? typeof req.query.initial === "boolean" ? req.query.initial : req.query.initial === "true" : false;
+    var createdBefore = req.query.lastReceivedMessage || Date.now();
     var limit = noUser ? 10 : 20;
     var query = {
-        "created": {
-            $lte: createdBefore
-        }
+        "created": {}
     };
 
-    console.log("MESSAGES INDEX", noUser, limit);
+    initialRequest ? query.created["$lt"] = createdBefore : query.created["$gt"] = createdBefore;
 
-    Message.find(query).limit(limit).sort("-created").exec(function(error, messages) {
+    console.log("MESSAGES INDEX", typeof initialRequest, req.query.initial, query);
+
+    Message.find(query).limit(limit).sort("created").populate('creator').exec(function(error, messages) {
         if (error) {
             console.log("ERROR: messages.index", error);
             return next();
         }
-        console.log("MESSAGES FIND", messages);
+        console.log("RETURNING MESSAGES: ", messages.length);
         return res.json({messages: messages});
     });
 
