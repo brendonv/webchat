@@ -15,3 +15,5 @@ Use strategy outline here: [A Successful git branching model](http://nvie.com/po
 ## Testing
 
 ## Installation
+
+## Next Steps
