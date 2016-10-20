@@ -19,6 +19,20 @@ db.once('open', function (cb) {
   console.log("successfully opened");
 });
 
+var app = express();
+
+
+// view engine setup
+app.set('views', path.join(__dirname, 'public/views'));
+app.set('view engine', 'pug');
+
+app.use(helmet());
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
 /**
  * Models
@@ -36,20 +50,9 @@ var User = mongoose.model('User');
 var users = require('./routes/users');
 var messages = require('./routes/messages');
 
-var app = express();
-
-
-// view engine setup
-app.set('views', path.join(__dirname, 'public/views'));
-app.set('view engine', 'pug');
-
-app.use(helmet());
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+/**
+ * Route definitions
+ */
 
 app.get('/', function(req, res) {
   res.render('index');
@@ -60,6 +63,10 @@ app.post('/logout', users.logout);
 
 app.get('/messages/:userId?', messages.index);
 app.post('/messages/:userId?', messages.create);
+
+/**
+ * App params
+ */
 
 app.param('userId', function(req, res, next, id) {
   if (!id) {
@@ -76,6 +83,10 @@ app.param('userId', function(req, res, next, id) {
     next();
   });
 });
+
+/**
+ * Middleware
+ */
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
