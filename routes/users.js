@@ -24,3 +24,7 @@ exports.signup = function(req, res) {
     });
 
 };
+
+exports.logout = function(req, res) {
+    return res.sendStatus(200);
+};
