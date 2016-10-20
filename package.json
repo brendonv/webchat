@@ -24,6 +24,8 @@
     "gulp-sass": "2.3.2",
     "gulp-sourcemaps": "2.1.1",
     "gulp-uglify": "2.0.0",
+    "helmet": "2.3.0",
+    "mongoose": "4.6.4",
     "morgan": "~1.7.0",
     "pug": "2.0.0-beta6",
     "serve-favicon": "~2.3.0",
