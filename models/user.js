@@ -3,7 +3,8 @@ var mongoose = require('mongoose'),
 
 var userSchema = new Schema({
     created: Date,
-    username: {type: String, index: true}
+    username: {type: String, index: true},
+    avatar_url: String
 });
 
 var User = mongoose.model('User', userSchema);

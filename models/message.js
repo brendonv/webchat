@@ -2,8 +2,8 @@ var mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
 
 var messageSchema = new Schema({
-    created: Date,
-    creator: {type: Schema.Types.ObjectId, ref: 'User', index: true},
+    created: {type: Date, index: true},
+    creator: {type: Schema.Types.ObjectId, ref: 'User'},
     content: String
 });
 

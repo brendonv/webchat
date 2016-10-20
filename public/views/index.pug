@@ -8,12 +8,10 @@ html(ng-app="webchat")
     link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
     link(href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,400,300,600', rel='stylesheet', type='text/css')
     link(rel="stylesheet", href="/build/webchat.css")
-    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css", integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi", crossorigin="anonymous")
 
-  body(layout='column')
-    div.body-container(flex='1')
-      da-header
-      div.ng-view-container(ng-view, layout='column')
+  body
+    div.body-container
+      div.ng-view-container(ng-view)
     script(src="//cdnjs.cloudflare.com/ajax/libs/tether/1.3.1/js/tether.min.js")
     script(type="application/javascript", src="/build/vendor.min.js")
     script(type="application/javascript", src="/build/webchat.min.js")
