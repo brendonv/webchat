@@ -1,5 +1,5 @@
 angular.module("webchat")
-    .controller("LandingCtrl", ['$scope', '$location', function($scope, $location) {
+    .controller("LandingCtrl", ['$scope', function($scope) {
 
        console.log("LANDING PAGER");
 
