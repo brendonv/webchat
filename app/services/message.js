@@ -5,7 +5,7 @@ angular.module('webchat')
             userId: "@_id"
         };
         var methods = {
-            signup: {method: 'GET', url: url},
+            index: {method: 'GET', url: url},
             create: {method: 'POST', url: url}
         };
         return $resource(url, params, methods);
