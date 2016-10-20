@@ -58,17 +58,14 @@ gulp.task('sass', function(){
     .pipe(autoprefixer())
     .pipe(addsrc(['vendor/**/*.css']))
     .pipe(concat(css_filename))
-    .pipe(gulp.dest(concat_dest))
-    .pipe(browserSync.reload({stream: true}));
+    .pipe(gulp.dest(concat_dest));
+    // .pipe(browserSync.reload({stream: true}));
 });
 
 gulp.task('browser-sync', ['nodemon'], function() {
     browserSync.init({
       proxy: "localhost:" + PORT
     });
-
-    gulp.watch(app_css, ['sass']);
-    gulp.watch(dev_glob).on('change', browserSync.reload);
 });
 
 gulp.task('nodemon', function(cb) {
@@ -97,7 +94,12 @@ gulp.task('test', function (done) {
   }).start();
 });
 
+gulp.task('dev', ['build-vendor', 'js', 'sass', 'browser-sync'], function() {
+  gulp.watch(dev_glob, ['build-vendor', 'js', 'sass', 'browser-sync'])
+  gulp.watch(app_css, ['build-vendor', 'js', 'sass', 'browser-sync'])
+})
+
 // Compound Tasks
 gulp.task('default',  ['build-vendor', 'js', 'sass']);
 
-gulp.task('dev', ['build-vendor', 'js', 'sass', 'browser-sync']);
+// gulp.task('dev', ['build-vendor', 'js', 'sass', 'browser-sync']);
