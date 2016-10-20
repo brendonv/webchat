@@ -3,8 +3,6 @@
 module.exports = function(config) {
   config.set({
 
-    basePath: './',
-
     files: [
       'vendor/angular/angular.js',
       'vendor/angular-route/angular-route.js',
