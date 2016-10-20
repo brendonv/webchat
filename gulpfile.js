@@ -4,7 +4,6 @@ var nodemon = require('gulp-nodemon');
 var html2js = require('gulp-ng-html2js');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
-var order = require("gulp-order");
 var addsrc = require('gulp-add-src');
 var pug = require('gulp-pug');
 var sass = require('gulp-sass');
