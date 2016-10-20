@@ -9,14 +9,18 @@ angular.module('webchat')
         function poll(time, callback){
             var user = User.user();
             userId = user && user._id || ""
-            intervalId = $interval(getMesages, time);
+            intervalId = $interval(getMessages, time, 0, false, callback);
+            return intervalId;
         }
 
-        function getMesages() {
+        function getMessages(callback) {
             MessageResource.index({userId: userId}).$promise.then(function(data) {
-                
-            }).catch(function(error) {
+                console.log("Poller getMessages", data);
+                var messages = data.messages;
 
+                if (messages) callback(messages);
+            }).catch(function(error) {
+                console.log("Poller getMessages error", error);
             });
         }
 
