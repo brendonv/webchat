@@ -1,5 +1,6 @@
 // Gulp / Build dependencies
 var gulp = require('gulp');
+var Server = require('karma').Server;
 var nodemon = require('gulp-nodemon');  
 var html2js = require('gulp-ng-html2js');
 var uglify = require('gulp-uglify');
@@ -18,8 +19,8 @@ var concat_dest = 'public/build';
 var app_filename = 'webchat.min.js';
 var css_filename = 'webchat.css';
 var vendor_filename = 'vendor.min.js';
-var dev_glob = ['app/**/*.js', '!app/config/production-config.js'];
-var prod_glob = ['app/**/*.js', '!app/config/dev-config.js'];
+var dev_glob = ['app/**/*.js', '!app/**/*.test.js', '!app/config/production-config.js'];
+var prod_glob = ['app/**/*.js', '!app/**/*.test.js', '!app/config/dev-config.js'];
 var vendor_js = ['vendor/**/*.min.js', 'vendor/**/dist/*.min.js'];
 var app_css = ['app/style/*.scss'];
   
@@ -72,12 +73,14 @@ gulp.task('start', function() {
   });
 });
 
-// gulp.task('test', function (done) {
-//   karma.start({
-//     configFile: __dirname + '/karma.conf.js',
-//     singleRun: true
-//   }, done);
-// });
+gulp.task('test', function (done) {
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, function () {
+    console.log("DONE");
+  }).start();
+});
 
 // Compound Tasks
 gulp.task('default',  ['build-vendor', 'js', 'sass']);
