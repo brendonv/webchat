@@ -7,13 +7,10 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function($ro
   $locationProvider.html5Mode(true);
 
   $routeProvider
-    .when('/', {
-      templateUrl: 'landing.html',
-      controller: 'LandingCtrl'
-    })
-    .otherwise({
-      redirectTo: '/'
-    })
+    .when('*', {
+      templateUrl: 'main.html',
+      controller: 'MainCtrl'
+    });
     
 }]);
 
