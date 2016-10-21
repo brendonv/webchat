@@ -1,0 +1,49 @@
+$footer-height: 40px;
+
+input {
+    border: 2px solid #E0E0E0;
+    border-radius: 5px;
+}
+
+input:focus {
+    outline: none !important;
+    border:2px solid #c6c6c6;
+    // box-shadow: 0 0 10px #719ECE;
+}
+
+input.signup {
+
+}
+
+#main {
+    margin-bottom: $footer-height;
+}
+
+#signup {
+    position: absolute;
+}
+
+.avatar {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-image: linear-gradient(to bottom, #426178 0%, #231434 100%);
+}
+
+.creator {
+    font-weight: bold;
+}
+
+span.date {
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: $footer-height;
+  background-color: #f5f5f5;
+}
