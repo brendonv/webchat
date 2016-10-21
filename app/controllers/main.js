@@ -28,6 +28,16 @@ angular.module("webchat")
                             }
                         }
                     }
+
+                    //hack to ensure no dupes.
+                    for (var k = 0; k < data.length; k++) {
+                        for (var j = 0; i < $scope.messages.length; i++) {
+                            if ($scope.messages[j]._id  === data[k]._id) {
+                                data.splice(k, i);
+                                k = k - 1; //redo
+                            }
+                        }
+                    }
                     $scope.messages = $scope.messages.concat(data);
                 }
             });
