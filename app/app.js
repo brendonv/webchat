@@ -1,5 +1,5 @@
 var app = angular.module('webchat', [
-  'ngRoute', 'ngResource', 'templates'
+  'ngRoute', 'ngResource', 'ngSanitize', 'templates'
 ]);
 
 app.config(['$routeProvider', '$httpProvider', '$locationProvider', function($routeProvider, $httpProvider, $locationProvider) {
