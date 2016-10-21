@@ -12,4 +12,4 @@ div#main.container(ng-class="{'blur': !user}")
     div.footer(ng-if="user")
         div#input
             form(ng-submit="sendMessage()")
-                input.message-input(type='text', placeholder="what's on your mind?", ng-model='input.value', ng-change='userInput()')
+                input.message-input(type='text', placeholder="what's on your mind?", ng-model='input.value')

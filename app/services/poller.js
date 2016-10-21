@@ -15,11 +15,9 @@ angular.module('webchat')
         }
 
         function getMessages(callback, initial) {
-            var isInitialRequest = initial !== undefined ? initial : false;
-
             var timeOfCall = Date.now();
 
-            MessageResource.index({userId: userId, lastCalled: lastCalled, initial: isInitialRequest}).$promise.then(function(data) {
+            MessageResource.index({userId: userId, lastCalled: lastCalled}).$promise.then(function(data) {
                 //set lastCalled to determine $gt time stamp
                 lastCalled = timeOfCall;
                 var messages = data.messages;
