@@ -1,12 +1,16 @@
-div#main.container-fluid
+div#main.container
     div.row
         div#messages
-            div(ng-repeat="message in messages")
-                p {{message.content}}
-                p {{message.creator.username}}
-                p {{message.created}}
-    div.row
-        div#input
-            form(ng-submit="sendMessage()")
-                input(type='text', ng-model='input.value', ng-change='userInput()')
+            div.media(ng-repeat="message in messages")
+                a.media-left
+                    div.avatar.media-object
+                div.media-body
+                    span.media-heading.creator {{::message.creator.username}}
+                    span.date {{::message.created | date:'MM/dd h:mma'}}
+                    p {{::message.content}}
+    div.footer(ng-if="user")
+        div.container
+            div#input
+                form(ng-submit="sendMessage()")
+                    input(type='text', ng-model='input.value', ng-change='userInput()')
     wc-signup(ng-if="!user")
