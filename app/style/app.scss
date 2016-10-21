@@ -3,6 +3,7 @@ $footer-height: 40px;
 input {
     border: 2px solid #E0E0E0;
     border-radius: 5px;
+    line-height: 32px;
 }
 
 input:focus {
@@ -12,7 +13,21 @@ input:focus {
 }
 
 input.signup {
+    width: 100%;
+    margin-bottom: 10px;
+}
 
+.signup-button {
+    background-color: #00D89C !important;
+}
+
+h1.signup {
+    font-size: 50px;
+    font-weight: lighter;
+}
+
+h4.instructions {
+    font-weight: lighter
 }
 
 #main {
@@ -20,7 +35,34 @@ input.signup {
 }
 
 #signup {
+    width: 60%;
+    height: 65%;
+    overflow: auto;
+    margin: auto;
     position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    color: black;
+    text-shadow: none;
+    padding: 10px;
+    text-align: center;
+}
+
+.logo {
+    width: 50%;
+    padding: 20px;
+}
+
+.opaque {
+    opacity: 0.5;
+}
+
+.blur {
+    color: transparent;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+#messages {
+    width: 100%;
 }
 
 .avatar {
@@ -28,6 +70,14 @@ input.signup {
     width: 50px;
     border-radius: 50%;
     background-image: linear-gradient(to bottom, #426178 0%, #231434 100%);
+}
+
+.media-body {
+    overflow: hidden;
+}
+
+.message-body {
+    word-wrap: break-word;
 }
 
 .creator {
@@ -46,4 +96,22 @@ span.date {
   /* Set the fixed height of the footer here */
   height: $footer-height;
   background-color: #f5f5f5;
+}
+
+.message-input {
+    width: 100%;
+    line-height: 30px;
+}
+
+@media only screen and (max-width: 575px) {
+    .logo {
+        padding: 10px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    h1.signup {
+        font-size: 2rem;
+        font-weight: lighter;
+    }
 }
