@@ -72,8 +72,8 @@ angular.module("webchat")
             var messages = data.messages;
 
             if (!messages.length) return;
-
-            $scope.messages = $scope.messages.concat(data);
+            console.log("NOUSER INITIAL REQUEST: ", messages);
+            $scope.messages = $scope.messages.concat(messages);
         }).catch(function(error) {
             //TODO: HANDLE ERROR
             console.log("ERROR: main initialization", error);
