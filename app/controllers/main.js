@@ -13,11 +13,13 @@ angular.module("webchat")
             pollerId = Poller.poll(5* 1000, function (data) {
                 if (data.length) {
                     //Check sentMessages object keys
+                    console.log(data);
                     if (Object.keys($scope.sentMessages).length) {
                         for (var key in $scope.sentMessages) {
                             for (var i = 0; i < data.length; i++) {
                                 var createdDate = new Date(data[i].created);
                                 if (key == createdDate.valueOf()) {
+                                    console.log("DUPLICATE: ", key, data[i].content);
                                     //Remove message from sent
                                     delete $scope.sentMessages[createdDate.valueOf()];
                                     //Remove duplicate
