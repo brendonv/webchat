@@ -67,4 +67,16 @@ angular.module("webchat")
             $scope.user = User.user();
         });
 
+        //INIT MESSAGES
+        MessageResource.index().$promise.then(function(data) {
+            var messages = data.messages;
+
+            if (!messages.length) return;
+
+            $scope.messages = $scope.messages.concat(data);
+        }).catch(function(error) {
+            //TODO: HANDLE ERROR
+            console.log("ERROR: main initialization", error);
+        });
+
     }]);

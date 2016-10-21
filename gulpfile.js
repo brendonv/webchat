@@ -28,7 +28,7 @@ var vendor_filename = 'vendor.min.js';
 var dev_glob = ['app/**/*.js', '!app/**/*.test.js', '!app/config/production-config.js'];
 var prod_glob = ['app/**/*.js', '!app/**/*.test.js', '!app/config/dev-config.js'];
 var vendor_js = ['vendor/**/*.min.js', 'vendor/**/dist/*.min.js'];
-var app_css = ['app/style/*.scss'];
+var app_css = ['app/style/*'];
   
 
 // Task Components
