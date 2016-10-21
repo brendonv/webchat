@@ -1,16 +1,15 @@
-div#main.container
+div#main.container(ng-class="{'blur': !user}")
+    wc-signup(ng-if="!user")
     div.row
         div#messages
             div.media(ng-repeat="message in messages")
-                a.media-left
+                a.media-left(ng-class="{'opaque':!user}")
                     div.avatar.media-object
                 div.media-body
                     span.media-heading.creator {{::message.creator.username}}
                     span.date {{::message.created | date:'MM/dd h:mma'}}
-                    p {{::message.content}}
+                    p.message-body {{::message.content}}
     div.footer(ng-if="user")
-        div.container
-            div#input
-                form(ng-submit="sendMessage()")
-                    input(type='text', ng-model='input.value', ng-change='userInput()')
-    wc-signup(ng-if="!user")
+        div#input
+            form(ng-submit="sendMessage()")
+                input.message-input(type='text', placeholder="what's on your mind?", ng-model='input.value', ng-change='userInput()')
