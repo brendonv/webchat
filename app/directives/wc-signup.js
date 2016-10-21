@@ -1,8 +1,8 @@
 angular.module('webchat')
     .directive('wcSignup', [function() {
         return {
-            scope: {
-            },
+            scope: {},
+            replace: true,
             templateUrl: 'wc-signup.html',
             controller: ["$scope", "$rootScope", "User", function($scope, $rootScope, User) {
                 $scope.user = {
@@ -15,3 +15,4 @@ angular.module('webchat')
             }]
         };
     }]);
+    
