@@ -4,5 +4,5 @@ div#signup
     h4.instructions To chat, simply enter a username below
     form(ng-submit="signup()")
         input.signup(ng-model="user.username", placeholder="your username")
-        button.signup-button.btn.btn-success(ng-show="user.username.length", type="button") Put me in, coach!
+        button.signup-button.btn.btn-success(ng-show="user.username.length", type="button", ng-click="signup()") Put me in, coach!
             
